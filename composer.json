@@ -1,0 +1,29 @@
+{
+    "name": "snmp-persist/snmp-persist",
+    "type": "library",
+    "description": "The SNMP pass_persist threaded backend",
+    "keywords": ["snmp", "management", "mib", "oid", "networking"],
+    "homepage": "https://github.com/slashmili/php-snmp-persist",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Milad Rastian",
+            "email": "milad@sam-media.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Snmp\\Persist": "src/",
+            "Snmp\\Unit": "src/"
+        }
+    },
+   "require": {
+        "php": ">=5.3"
+    },
+    "minimum-stability": "dev",
+ 	"extra": {
+        "branch-alias": {
+            "dev-master": "0.9-dev"
+        }
+    }
+}
