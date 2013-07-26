@@ -3,7 +3,7 @@
     "type": "library",
     "description": "The SNMP pass_persist threaded backend",
     "keywords": ["snmp", "management", "mib", "oid", "networking"],
-    "homepage": "https://github.com/slashmili/php-snmp-persist",
+    "homepage": "https://github.com/sam-media/php-snmp-persist",
     "license": "MIT",
     "authors": [
         {
