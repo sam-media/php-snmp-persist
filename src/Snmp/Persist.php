@@ -64,11 +64,13 @@ class Persist
     {
         $next_oid = null;
         $oid = trim(fgets($this->input));
+        $keys = array_keys($this->snmp_actions);
+        sort($keys);
         if($oid == $this->base_oid){
-            $next_oid = $this->base_oid . '.1';
+            $next_oid = @$keys[0];
+        } else if ($oid == end($keys)) {
+            $next_oid = 'ENDOFOID';
         }else {
-            $keys = array_keys($this->snmp_actions);
-            asort($keys);
             $index = 0;
             foreach($keys as $key){
                 if($key == $oid){
@@ -77,7 +79,11 @@ class Persist
                 }
                 $index++;
             }
-            $next_oid = @$keys[$index];
+            if($index == count($keys)){
+                $next_oid = @$keys[0];
+            }else {
+                $next_oid = @$keys[$index];
+            }
         }
 
         $this->getOid($next_oid);
