@@ -41,8 +41,39 @@ class Persist
         }
     }
 
+    private function sortOids()
+    {
+        $keys = array_keys($this->snmp_actions);
+        usort($keys, function ($a, $b){
+            $a_s = explode(".", $a);
+            $b_s = explode(".", $b);
+            $i = 0;
+            while(1){
+                if($i> count($a_s)){
+                    if($i > count($b_s)){
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }else if($i > count($a_s)){
+                    return 1;
+                }
+
+                if ($a_s[$i] < $b_s[$i]) {
+                    return -1;
+                } else if ($a_s[$i] > $b_s[$i]) {
+                    return 1;
+                }
+                $i++;
+            }
+            return str_replace(".", "", $a) > str_replace(".", "", $b);
+        });
+        return $keys;
+    }
+
     public function run()
     {
+        $this->sortedOids = $this->sortOids();
         while($cmd = fgets($this->input)){
             $cmd = strtoupper(trim($cmd));
             switch ($cmd){
@@ -64,8 +95,7 @@ class Persist
     {
         $next_oid = null;
         $oid = trim(fgets($this->input));
-        $keys = array_keys($this->snmp_actions);
-        sort($keys);
+        $keys = $this->sortedOids;
         if($oid == $this->base_oid){
             $next_oid = @$keys[0];
         } else if ($oid == end($keys)) {
